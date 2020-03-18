@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-wallet"
+    version="1.0.0">
+    <name>WalletPlugin</name>
+    <description>Cordova plugin for integration with native Wallet functionality</description>
+    
+    <dependency id="cordova-plugin-add-swift-support" version="^2.0.2"/>
+
+    <js-module src="www/WalletPlugin.js" name="walletPlugin">
+        <clobbers target="walletPlugin" />
+    </js-module>
+    
+    <!-- iOS -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="WalletPlugin">
+                <param name="ios-package" value="WalletPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+       
+        <config-file target="*-Info.plist" parent="ITSAppUsesNonExemptEncryption">
+            <false/>
+        </config-file>
+
+        <source-file src="src/ios/WalletPlugin.swift" target-dir="src/com/hannaford/mobile" />
+        
+        <framework src="PassKit.framework" embed="true" />
+    </platform>
+    
+    <!-- Android -->
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="WalletPlugin">
+                <param name="android-package" value="com.hannaford.mobile.WalletPlugin" />
+            </feature>
+        </config-file>
+        
+        <source-file src="src/android/WalletPlugin.java" target-dir="src/com/hannaford/mobile" />
+        
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+        
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+    </platform>
+    
+</plugin>

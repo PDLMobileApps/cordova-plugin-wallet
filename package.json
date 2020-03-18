@@ -1,0 +1,15 @@
+{
+  "name": "cordova-plugin-wallet",
+  "version": "1.0.0",
+  "description": "Plugin for Integration with native wallet functionality",
+  "cordova": {
+    "id": "cordova-plugin-wallet",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "keywords": [
+  ],
+  "author": "IBM iXM India Development Team"  
+}
